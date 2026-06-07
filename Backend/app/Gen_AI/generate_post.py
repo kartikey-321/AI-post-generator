@@ -2,6 +2,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -10,6 +11,9 @@ def generate_json_response(data):
     class Generate_Posts(BaseModel):
         post_generated: str=Field(description="post generated")
 
+    print("GEMINI_API_KEY:", os.getenv("GEMINI_API_KEY"))
+    print("GOOGLE_API_KEY:", os.getenv("GOOGLE_API_KEY"))
+    
     model=ChatGoogleGenerativeAI(model='gemini-flash-latest')
 
     parser=model.with_structured_output(Generate_Posts)
